@@ -112,13 +112,14 @@
 <body>
 
 <!-- Audio -->
-<audio id="musicIntro" preload="auto" loop>
-    <source src="songs/intro.mp3" type="audio/mpeg">
+<audio id="musicIntro" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_1a4d9a3f67.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="musicYes" preload="auto" loop>
-    <source src="songs/yes.mp3" type="audio/mpeg">
+<audio id="musicYes" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c5c9d6b8c.mp3" type="audio/mpeg">
 </audio>
+
 
 
 <!-- Screen 1 -->
@@ -165,37 +166,52 @@
 </div>
 
 <script>
-    const screen1 = document.getElementById("screen1");
-    const screen2 = document.getElementById("screen2");
-    const screen3 = document.getElementById("screen3");
+  const introMusic = document.getElementById("musicIntro");
+  const yesMusic = document.getElementById("musicYes");
 
-    const introMusic = document.getElementById("musicIntro");
-    const yesMusic = document.getElementById("musicYes");
+  const screen1 = document.getElementById("screen1");
+  const screen2 = document.getElementById("screen2");
+  const screen3 = document.getElementById("screen3");
+  const noBtn = document.getElementById("noBtn");
 
-    const noBtn = document.getElementById("noBtn");
+  function goToQuestion() {
+    // HARD user-triggered play
+    introMusic.pause();
+    introMusic.currentTime = 0;
 
-    function goToQuestion() {
-        introMusic.play();
-        screen1.classList.add("hidden");
-        screen2.classList.remove("hidden");
-    }
+    introMusic.play()
+      .then(() => console.log("Intro music playing"))
+      .catch(err => console.error("Intro blocked:", err));
 
-    function goToLove() {
-        introMusic.pause();
-        yesMusic.play();
-        screen2.classList.add("hidden");
-        screen3.classList.remove("hidden");
-    }
+    screen1.classList.add("hidden");
+    screen2.classList.remove("hidden");
+  }
 
-    noBtn.addEventListener("mouseenter", () => {
-        const x = Math.random() * (window.innerWidth - 120);
-        const y = Math.random() * (window.innerHeight - 60);
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-    });
+  function goToLove() {
+    introMusic.pause();
+
+    yesMusic.pause();
+    yesMusic.currentTime = 0;
+
+    yesMusic.play()
+      .then(() => console.log("Yes music playing"))
+      .catch(err => console.error("Yes blocked:", err));
+
+    screen2.classList.add("hidden");
+    screen3.classList.remove("hidden");
+  }
+
+  noBtn.addEventListener("mouseenter", () => {
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHeight - 60);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
 </script>
+
 
 </body>
 </html>
+
 
 

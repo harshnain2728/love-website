@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff5f8f, #ff87ab);
+        overflow: hidden;
+        color: #fff;
+    }
+
+    .screen {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(1.05);
+    }
+
+    h1, h2 {
+        margin-bottom: 12px;
+    }
+
+    p {
+        max-width: 720px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    button {
+        padding: 12px 28px;
+        border: none;
+        border-radius: 30px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    button:hover {
+        transform: scale(1.08);
+    }
+
+    .btn-primary {
+        background: #fff;
+        color: #ff4f7b;
+        font-weight: 600;
+    }
+
+    .btn-no {
+        background: #ff4f7b;
+        color: #fff;
+        position: absolute;
+    }
+
+    /* Image slider */
+    .slider {
+        width: 100%;
+        max-width: 900px;
+        overflow: hidden;
+        margin-bottom: 25px;
+    }
+
+    .slide-track {
+        display: flex;
+        animation: slide 20s linear infinite;
+    }
+
+    .slide-track img {
+        width: 200px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 16px;
+        margin: 0 10px;
+    }
+
+    @keyframes slide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 600px) {
+        p { font-size: 1rem; }
+        .slide-track img {
+            width: 150px;
+            height: 100px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Audio -->
+<audio id="musicIntro" loop>
+    <source src="songs/intro.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="musicYes" loop>
+    <source src="songs/yes.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Screen 1 -->
+<div id="screen1" class="screen">
+    <div class="slider">
+        <div class="slide-track">
+            <img src="images/img1.jpg">
+            <img src="images/img2.jpg">
+            <img src="images/img3.jpg">
+            <!-- duplicated for smooth looping -->
+            <img src="images/img1.jpg">
+            <img src="images/img2.jpg">
+            <img src="images/img3.jpg">
+        </div>
+    </div>
+
+    <h1>Hey My Love ❤️</h1>
+    <p>
+        You make my world brighter in ways I never imagined.
+        Your smile feels like peace, your presence feels like home,
+        and every moment with you reminds me how lucky I am.
+    </p>
+
+    <button class="btn-primary" onclick="goToQuestion()">Click here 💕</button>
+</div>
+
+<!-- Screen 2 -->
+<div id="screen2" class="screen hidden">
+    <h2>Do you know how much I love you? 💖</h2>
+
+    <button class="btn-primary" onclick="goToLove()">Yes 😘</button>
+    <button id="noBtn" class="btn-no">No 🙈</button>
+</div>
+
+<!-- Screen 3 -->
+<div id="screen3" class="screen hidden">
+    <h1>Happy Valentine’s Day 💝</h1>
+    <p>
+        I love you more than words can ever explain.
+        You are my today, my tomorrow, and my forever.
+        With you, everything feels right.
+        I choose you. Always. ❤️🌹
+    </p>
+</div>
+
+<script>
+    const screen1 = document.getElementById("screen1");
+    const screen2 = document.getElementById("screen2");
+    const screen3 = document.getElementById("screen3");
+
+    const introMusic = document.getElementById("musicIntro");
+    const yesMusic = document.getElementById("musicYes");
+
+    const noBtn = document.getElementById("noBtn");
+
+    function goToQuestion() {
+        introMusic.play();
+        screen1.classList.add("hidden");
+        screen2.classList.remove("hidden");
+    }
+
+    function goToLove() {
+        introMusic.pause();
+        yesMusic.play();
+        screen2.classList.add("hidden");
+        screen3.classList.remove("hidden");
+    }
+
+    noBtn.addEventListener("mouseenter", () => {
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (window.innerHeight - 60);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    });
+</script>
+
+</body>
+</html>
